@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PhotoTrigger
+  - Photo1
+  - Photo2
+  - Photo3
+  - Cam1
+  - Cam2
+  - Cam3
   layers:
   - Default
   - TransparentFX

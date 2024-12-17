@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerGravity : MonoBehaviour
 {
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jumpHeight = 3.0f;
+    [SerializeField] private float jumpHeight = 1.7f;
     private Vector3 playerGravity;
 
     private GroundSensor groundSensor;

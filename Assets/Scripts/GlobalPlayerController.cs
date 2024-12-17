@@ -8,6 +8,7 @@ public class GlobalPlayerController : MonoBehaviour
     private MovementController movementController;
     private PlayerGravity gravityController;
     private MaskingController maskingController;
+    private PhotoTriggerController photoTriggerController;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private PhysicMaterial lowFrictionMaterial;
     [SerializeField] private PhysicMaterial defaultMaterial;
@@ -23,6 +24,11 @@ public class GlobalPlayerController : MonoBehaviour
         movementController = GetComponent<MovementController>();
         gravityController = GetComponent<PlayerGravity>();
         maskingController = GetComponent<MaskingController>();
+        photoTriggerController = GetComponent<PhotoTriggerController>();
+    }
+
+    void Start(){
+        Cursor.lockState = CursorLockMode.Locked; 
     }
 
     void Update()
@@ -40,6 +46,8 @@ public class GlobalPlayerController : MonoBehaviour
                 movementController.SetLastKey("right");
             }
         }
+
+        if(inputs.PhotoPressed && photoTriggerController.isFocus) photoTriggerController.TakePhoto(photoTriggerController.photoSpot);
 
         // Detectar colisiones con paredes
         if ((characterController.collisionFlags & CollisionFlags.Sides) != 0)
