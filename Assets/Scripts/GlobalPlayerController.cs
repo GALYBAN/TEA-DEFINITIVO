@@ -7,6 +7,7 @@ public class GlobalPlayerController : MonoBehaviour
     private PlayerInputs inputs;
     private MovementController movementController;
     private PlayerGravity gravityController;
+    private MaskingController maskingController;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private PhysicMaterial lowFrictionMaterial;
     [SerializeField] private PhysicMaterial defaultMaterial;
@@ -21,6 +22,7 @@ public class GlobalPlayerController : MonoBehaviour
         inputs = GetComponent<PlayerInputs>();
         movementController = GetComponent<MovementController>();
         gravityController = GetComponent<PlayerGravity>();
+        maskingController = GetComponent<MaskingController>();
     }
 
     void Update()
@@ -57,7 +59,8 @@ public class GlobalPlayerController : MonoBehaviour
             }
         }
 
-        movementController.Move();
+        maskingController.Masking();
+        if(!maskingController.isColorfull)movementController.Move();
         gravityController.ApplyGravity(GetComponent<CharacterController>());
     }
 
