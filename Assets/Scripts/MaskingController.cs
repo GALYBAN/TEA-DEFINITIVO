@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class MaskingController : MonoBehaviour
 {
     [SerializeField] public bool isColorfull;
-    [SerializeField] float maskingTimer;
+    public float maskingTimer;
     [SerializeField] float maskingTime = 5f;
     [SerializeField] float unmaskingTimer;
     [SerializeField] float unmaskingWaitTime = 2f;
+
+    public bool stopTimer = false;
+
+    [SerializeField] Material _material;
 
     [SerializeField] Image _maskingEffect;
     private Transform _cameraTransform;
@@ -53,11 +57,11 @@ public class MaskingController : MonoBehaviour
     {
         maskingTimer += Time.deltaTime;
 
-        if (maskingTimer >= maskingTime && !isColorfull)
+        if (maskingTimer >= maskingTime && !isColorfull && !stopTimer)
         {
             isColorfull = true;
             unmaskingTimer = 0f;
-        }
+            _material.
 
         if (isColorfull)
         {
@@ -66,11 +70,12 @@ public class MaskingController : MonoBehaviour
             {
                 isColorfull = false;
                 maskingTimer = 0f;
+                _material._IsWhite = 1f;
             }
         }
 
         // Ajustar la opacidad del maskingEffect
-        if (!isColorfull)
+        if (!isColorfull && !stopTimer)
         {
             // Aumentar la opacidad progresivamente durante el masking.
             float alpha = Mathf.Lerp(0f, 1f, maskingTimer / maskingTime);
