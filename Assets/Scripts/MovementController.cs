@@ -24,7 +24,7 @@ public class MovementController : MonoBehaviour
     public void Move()
     {
         float horizontal = inputs.HorizontalInput;
-        Vector3 direction = new Vector3(horizontal, 0, 0);
+        Vector3 direction = new Vector3(0, 0, horizontal);
 
         if (direction != Vector3.zero)
         {
