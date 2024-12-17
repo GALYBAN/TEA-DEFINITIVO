@@ -11,7 +11,11 @@ public class PhotoTriggerController : MonoBehaviour
     public string photoSpot;
     public Camera mainCamera;
     public Camera[] cameras;
-    bool inCoroutine=false;
+    public bool inCoroutine=false;
+
+    bool ph1 = false;
+    bool ph2;
+    bool ph3;
 
     void Awake(){
         maskingController=GetComponent<MaskingController>();
@@ -46,7 +50,8 @@ public class PhotoTriggerController : MonoBehaviour
         switch (photoSpot){
             case "Photo1":
                 Debug.Log("Foto 1");
-                if(!inCoroutine) StartCoroutine(SwitchCamera(0));
+                if(!inCoroutine && !ph1) StartCoroutine(SwitchCamera(0));
+                ph1=true;
             break;
             case "Photo2":
                 Debug.Log("Foto 2");
@@ -57,7 +62,7 @@ public class PhotoTriggerController : MonoBehaviour
         }
     }
 
-    private IEnumerator SwitchCamera(int camIndex){
+    private IEnumerator SwitchCamera(int camIndex){ //TODO cuando este haciendo la foto no puede moverse el personaje
         inCoroutine=true;
         mainCamera.gameObject.SetActive(false);
         if (camIndex >= 0 && camIndex < cameras.Length) cameras[camIndex].gameObject.SetActive(true);  

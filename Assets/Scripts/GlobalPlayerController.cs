@@ -68,7 +68,7 @@ public class GlobalPlayerController : MonoBehaviour
         }
 
         maskingController.Masking();
-        if(!maskingController.isColorfull)movementController.Move();
+        if(!maskingController.isColorfull && !photoTriggerController.inCoroutine)movementController.Move();
         gravityController.ApplyGravity(GetComponent<CharacterController>());
     }
 

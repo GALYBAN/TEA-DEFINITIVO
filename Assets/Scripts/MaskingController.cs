@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class MaskingController : MonoBehaviour
 {
     [SerializeField] public bool isColorfull;
-    [SerializeField] float maskingTimer;
+    [SerializeField] public float maskingTimer;
     [SerializeField] float maskingTime = 5f;
     [SerializeField] float unmaskingTimer;
     [SerializeField] float unmaskingWaitTime = 2f;
+    public bool stopTimer = false;
+
 
     [SerializeField] Image _maskingEffect;
     private Transform _cameraTransform;
@@ -21,7 +23,6 @@ public class MaskingController : MonoBehaviour
     [SerializeField] float shakeFrequency = 20f;
 
     private float currentShakeIntensity = 0f; // Intensidad dinámica del temblor.
-
     private void Awake()
     {
         _cameraTransform = Camera.main.transform;
@@ -53,24 +54,21 @@ public class MaskingController : MonoBehaviour
     {
         maskingTimer += Time.deltaTime;
 
-        if (maskingTimer >= maskingTime && !isColorfull)
-        {
+        if (maskingTimer >= maskingTime && !isColorfull && !stopTimer){
             isColorfull = true;
             unmaskingTimer = 0f;
         }
 
-        if (isColorfull)
-        {
+        if (isColorfull){
             unmaskingTimer += Time.deltaTime;
-            if (unmaskingTimer >= unmaskingWaitTime)
-            {
+            if (unmaskingTimer >= unmaskingWaitTime){
                 isColorfull = false;
                 maskingTimer = 0f;
             }
         }
 
         // Ajustar la opacidad del maskingEffect
-        if (!isColorfull)
+        if (!isColorfull && !stopTimer)
         {
             // Aumentar la opacidad progresivamente durante el masking.
             float alpha = Mathf.Lerp(0f, 1f, maskingTimer / maskingTime);
