@@ -37,12 +37,16 @@ public class PhotoTriggerController : MonoBehaviour
             photoSpot=collider.tag;
         }
     }
+    void OnTriggerStay(Collider collider){
+        if(collider.transform.parent.CompareTag("PhotoTrigger")) maskingController.SetColorFull(0);
+    }
     void OnTriggerExit(Collider collider){
         if(collider.transform.parent.CompareTag("PhotoTrigger")){
             maskingController.isColorfull=false;
             maskingController.stopTimer=false;
             maskingController.maskingTimer=0;
             isFocus=false;
+            maskingController.SetColorFull(1);
         }
     }
 
