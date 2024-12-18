@@ -11,7 +11,7 @@ public class MaskingController : MonoBehaviour
     [SerializeField] float unmaskingTimer;
     [SerializeField] float unmaskingWaitTime = 2f;
     public bool stopTimer = false;
-
+    private Animator _anim;
 
 
     [SerializeField] public Material _material;
@@ -28,6 +28,7 @@ public class MaskingController : MonoBehaviour
     private float currentShakeIntensity = 0f; // Intensidad dinámica del temblor.
     private void Awake()
     {
+        _anim = GetComponentInChildren<Animator>();
         _cameraTransform = Camera.main.transform;
         _originalCameraPosition = _cameraTransform.position;
     }
@@ -60,12 +61,14 @@ public class MaskingController : MonoBehaviour
         if (maskingTimer >= maskingTime && !isColorfull && !stopTimer){
             isColorfull = true;
             unmaskingTimer = 0f;
+            _anim.SetTrigger("IsSad");
             SetColorFull(0);
         }
 
         if (isColorfull){
             unmaskingTimer += Time.deltaTime;
-            if (unmaskingTimer >= unmaskingWaitTime){
+            if (unmaskingTimer >= unmaskingWaitTime)
+            {
                 isColorfull = false;
                 maskingTimer = 0f;
                 SetColorFull(1);
