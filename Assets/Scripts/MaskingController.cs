@@ -61,7 +61,8 @@ public class MaskingController : MonoBehaviour
         {
             isColorfull = true;
             unmaskingTimer = 0f;
-            _material.
+            _material.SetFloat("_IsWhite", 0f);
+        }
 
         if (isColorfull)
         {
@@ -70,7 +71,7 @@ public class MaskingController : MonoBehaviour
             {
                 isColorfull = false;
                 maskingTimer = 0f;
-                _material._IsWhite = 1f;
+                _material.SetFloat("_IsWhite", 1f);
             }
         }
 
@@ -89,11 +90,14 @@ public class MaskingController : MonoBehaviour
         }
     }
 
-    private void CameraShake()
+    void CameraShake()
     {
         float offsetX = Mathf.PerlinNoise(Time.time * shakeFrequency, 0f) * currentShakeIntensity - (currentShakeIntensity / 2f);
         float offsetY = Mathf.PerlinNoise(0f, Time.time * shakeFrequency) * currentShakeIntensity - (currentShakeIntensity / 2f);
 
         _cameraTransform.position = _originalCameraPosition + new Vector3(offsetX, offsetY, 0f);
     }
+
+
 }
+

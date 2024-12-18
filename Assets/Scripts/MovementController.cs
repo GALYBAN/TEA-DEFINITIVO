@@ -7,6 +7,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float groundedSpeed = 5f;
     [SerializeField] private float airSpeed = 2.5f;
 
+    [SerializeField] private Animator _anim;
+
     private float speed;
     private string lastKey;
 
@@ -19,6 +21,7 @@ public class MovementController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         inputs = GetComponent<PlayerInputs>();
         groundSensor = GetComponent<GroundSensor>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     public void Move()
@@ -28,6 +31,8 @@ public class MovementController : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
+            _anim.SetBool("IsWalking", true);
+            
             if (groundSensor.IsGrounded())
             {
                 speed = groundedSpeed;
@@ -40,6 +45,10 @@ public class MovementController : MonoBehaviour
             }
 
             controller.Move(direction * speed * Time.deltaTime);
+        }
+        else
+        {
+            _anim.SetBool("IsWalking", false);
         }
     }
 

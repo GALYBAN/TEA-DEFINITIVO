@@ -8,10 +8,13 @@ public class PlayerGravity : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.7f;
     private Vector3 playerGravity;
 
+    [SerializeField] private Animator _anim;
+
     private GroundSensor groundSensor;
 
     void Start()
     {
+        _anim = GetComponentInChildren<Animator>();
         groundSensor = GetComponent<GroundSensor>();
     }
 
@@ -23,6 +26,7 @@ public class PlayerGravity : MonoBehaviour
         }
         else if (groundSensor.IsGrounded() && playerGravity.y < 0)
         {
+            _anim.SetBool("IsJumping", false);
             playerGravity.y = -1;
         }
 
@@ -33,6 +37,7 @@ public class PlayerGravity : MonoBehaviour
     {
         if (groundSensor.IsGrounded())
         {
+            _anim.SetBool("IsJumping", true);
             playerGravity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
     }
