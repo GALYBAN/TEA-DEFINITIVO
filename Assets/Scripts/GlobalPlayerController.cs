@@ -33,7 +33,7 @@ public class GlobalPlayerController : MonoBehaviour
 
     void Update()
     {
-        if (inputs.JumpPressed)
+        if (inputs.JumpPressed && !maskingController.isColorfull && !photoTriggerController.inCoroutine)
         {
             gravityController.Jump();
 
@@ -61,10 +61,8 @@ public class GlobalPlayerController : MonoBehaviour
         else
         {
             // Restaurar el material por defecto
-            if (defaultMaterial != null)
-            {
-                characterController.material = defaultMaterial;
-            }
+            if (defaultMaterial != null) characterController.material = defaultMaterial;
+            
         }
 
         maskingController.Masking();

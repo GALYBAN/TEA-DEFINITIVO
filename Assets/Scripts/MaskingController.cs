@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class MaskingController : MonoBehaviour
 {
     [SerializeField] public bool isColorfull;
-    [SerializeField] public float maskingTimer;
     public float maskingTimer;
     [SerializeField] float maskingTime = 5f;
     [SerializeField] float unmaskingTimer;
@@ -14,7 +13,6 @@ public class MaskingController : MonoBehaviour
     public bool stopTimer = false;
 
 
-    public bool stopTimer = false;
 
     [SerializeField] Material _material;
 
@@ -60,8 +58,6 @@ public class MaskingController : MonoBehaviour
         maskingTimer += Time.deltaTime;
 
         if (maskingTimer >= maskingTime && !isColorfull && !stopTimer){
-        if (maskingTimer >= maskingTime && !isColorfull && !stopTimer)
-        {
             isColorfull = true;
             unmaskingTimer = 0f;
             _material.SetFloat("_IsWhite", 0f);
@@ -89,8 +85,8 @@ public class MaskingController : MonoBehaviour
             float alpha = Mathf.Lerp(1f, 0f, unmaskingTimer / unmaskingWaitTime);
             _maskingEffect.color = new Color(_maskingEffect.color.r, _maskingEffect.color.g, _maskingEffect.color.b, alpha);
         }
-    }
 
+    }
     void CameraShake()
     {
         float offsetX = Mathf.PerlinNoise(Time.time * shakeFrequency, 0f) * currentShakeIntensity - (currentShakeIntensity / 2f);
@@ -98,7 +94,5 @@ public class MaskingController : MonoBehaviour
 
         _cameraTransform.position = _originalCameraPosition + new Vector3(offsetX, offsetY, 0f);
     }
-
-
 }
 
