@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class MaskingController : MonoBehaviour
 {
     [SerializeField] public bool isColorfull;
+    [SerializeField] public float maskingTimer;
     public float maskingTimer;
     [SerializeField] float maskingTime = 5f;
     [SerializeField] float unmaskingTimer;
     [SerializeField] float unmaskingWaitTime = 2f;
+    public bool stopTimer = false;
+
 
     public bool stopTimer = false;
 
@@ -25,7 +28,6 @@ public class MaskingController : MonoBehaviour
     [SerializeField] float shakeFrequency = 20f;
 
     private float currentShakeIntensity = 0f; // Intensidad dinámica del temblor.
-
     private void Awake()
     {
         _cameraTransform = Camera.main.transform;
@@ -57,6 +59,7 @@ public class MaskingController : MonoBehaviour
     {
         maskingTimer += Time.deltaTime;
 
+        if (maskingTimer >= maskingTime && !isColorfull && !stopTimer){
         if (maskingTimer >= maskingTime && !isColorfull && !stopTimer)
         {
             isColorfull = true;
@@ -64,11 +67,9 @@ public class MaskingController : MonoBehaviour
             _material.SetFloat("_IsWhite", 0f);
         }
 
-        if (isColorfull)
-        {
+        if (isColorfull){
             unmaskingTimer += Time.deltaTime;
-            if (unmaskingTimer >= unmaskingWaitTime)
-            {
+            if (unmaskingTimer >= unmaskingWaitTime){
                 isColorfull = false;
                 maskingTimer = 0f;
                 _material.SetFloat("_IsWhite", 1f);

@@ -17160,7 +17160,7 @@ MonoBehaviour:
   maskingTimer: 0
   maskingTime: 7
   unmaskingTimer: 0
-  unmaskingWaitTime: 3
+  unmaskingWaitTime: 3.3
   stopTimer: 0
   _material: {fileID: 2100000, guid: a44808da415169b4f918f45104d61de4, type: 2}
   _maskingEffect: {fileID: 984633521}
