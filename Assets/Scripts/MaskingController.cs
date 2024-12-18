@@ -14,7 +14,7 @@ public class MaskingController : MonoBehaviour
 
 
 
-    [SerializeField] Material _material;
+    [SerializeField] public Material _material;
 
     [SerializeField] Image _maskingEffect;
     private Transform _cameraTransform;
@@ -60,7 +60,7 @@ public class MaskingController : MonoBehaviour
         if (maskingTimer >= maskingTime && !isColorfull && !stopTimer){
             isColorfull = true;
             unmaskingTimer = 0f;
-            _material.SetFloat("_IsWhite", 0f);
+            SetColorFull(0);
         }
 
         if (isColorfull){
@@ -68,7 +68,7 @@ public class MaskingController : MonoBehaviour
             if (unmaskingTimer >= unmaskingWaitTime){
                 isColorfull = false;
                 maskingTimer = 0f;
-                _material.SetFloat("_IsWhite", 1f);
+                SetColorFull(1);
             }
         }
 
@@ -86,6 +86,9 @@ public class MaskingController : MonoBehaviour
             _maskingEffect.color = new Color(_maskingEffect.color.r, _maskingEffect.color.g, _maskingEffect.color.b, alpha);
         }
 
+    }
+    public void SetColorFull(float num){
+        _material.SetFloat("_IsWhite", num);
     }
     void CameraShake()
     {
